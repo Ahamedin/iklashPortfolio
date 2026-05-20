@@ -102,7 +102,7 @@ export default function Skills() {
                 overflow: "hidden",
                 transition: "border-color 0.2s",
               }}
-              whileHover={{ borderColor: "rgba(255,224,52,0.3)" } as any}
+              whileHover={{ borderColor: "rgba(255,224,52,0.3)" }}
             >
               {/* Category header */}
                 <div style={{ padding: "14px 16px", borderBottom: "1px solid rgba(255,224,52,0.08)", display: "flex", alignItems: "center", gap: "12px" }}>

@@ -157,7 +157,7 @@ export default function About() {
                   gap: "12px",
                   transition: "border-color 0.2s",
                 }}
-                whileHover={{ borderColor: "rgba(255,224,52,0.4)" } as any}
+                whileHover={{ borderColor: "rgba(255,224,52,0.4)" }}
               >
                 <p
                   style={{

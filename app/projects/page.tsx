@@ -42,7 +42,11 @@ const cardVariants = { hidden: { y: 20, opacity: 0 }, show: { y: 0, opacity: 1, 
 
 export default function Projects() {
   const dialogRef = useRef<HTMLDialogElement | null>(null);
-  const layoutRef = useRef<any>(null);
+  type AnimeLayout = {
+    update: (callback: () => void) => void;
+    revert: () => void;
+  };
+  const layoutRef = useRef<AnimeLayout | null>(null);
 
   useEffect(() => {
     let disposed = false;

@@ -1,6 +1,6 @@
 "use client";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState, useEffect, type ReactNode } from "react";
 import {
   Send, Sparkles, Mail, FileText,
   LayoutTemplate, User, MessageSquare,
@@ -105,7 +105,13 @@ export default function Contact() {
     } finally { setIsSending(false); }
   };
 
-  const BtnPrimary = ({ onClick, disabled, children }: any) => (
+  type BtnPrimaryProps = {
+    onClick?: () => void;
+    disabled?: boolean;
+    children: ReactNode;
+  };
+
+  const BtnPrimary = ({ onClick, disabled, children }: BtnPrimaryProps) => (
     <button
       onClick={onClick} disabled={disabled}
       style={{

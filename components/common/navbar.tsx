@@ -21,6 +21,8 @@ const ABOUT_SUB = [
   { href: "/#skills",     label: "Skills",     id: "skills" },
 ];
 
+type NavMobileItem = (typeof NAV_ITEMS)[number] & { sub?: boolean };
+
 export function Navbar() {
   const [currentSection, setCurrentSection] = useState("");
   const [isMobileOpen, setIsMobileOpen]     = useState(false);
@@ -200,8 +202,8 @@ export function Navbar() {
                   }}
                   className="mt-2 flex flex-col"
                 >
-                  {[...NAV_ITEMS.slice(0, 2), ...ABOUT_SUB.map(s => ({ ...s, sub: true })), NAV_ITEMS[2]].map(
-                    (item: any) => (
+                  {[...NAV_ITEMS.slice(0, 2), ...ABOUT_SUB.map((s) => ({ ...s, sub: true })), NAV_ITEMS[2]].map(
+                    (item: NavMobileItem) => (
                       <a
                         key={item.id}
                         href={item.href}

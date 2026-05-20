@@ -44,7 +44,7 @@ export default function GitHub() {
           onViewportEnter={() => setVisible(true)}
           className="p-5 sm:p-6 lg:p-7"
           style={{ background: "#181818", border: "1.5px solid rgba(255,224,52,0.12)", transition: "border-color 0.2s" }}
-          whileHover={{ borderColor: "rgba(255,224,52,0.3)" } as any}
+          whileHover={{ borderColor: "rgba(255,224,52,0.3)" }}
         >
           {/* Card header */}
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
