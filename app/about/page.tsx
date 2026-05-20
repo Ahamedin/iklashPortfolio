@@ -38,14 +38,14 @@ export default function About() {
         className="absolute pointer-events-none"
         style={{
           top: "10%", right: "-5%",
-          width: "400px", height: "400px",
+          width: "clamp(260px, 50vw, 400px)", height: "clamp(260px, 50vw, 400px)",
           borderRadius: "50%",
           background: "radial-gradient(circle, rgba(255,224,52,0.06) 0%, transparent 70%)",
           filter: "blur(40px)", zIndex: 0,
         }}
       />
 
-      <div className="relative z-10 container mx-auto px-6 md:px-12 py-24">
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 md:px-12 py-16 sm:py-24">
 
         {/* Section label */}
         <motion.div {...fade(0)} className="mb-6">
@@ -82,10 +82,10 @@ export default function About() {
           Who I Am
         </motion.h1>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 max-w-6xl">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 max-w-6xl">
 
           {/* Left — intro block */}
-          <div className="space-y-8">
+          <div className="space-y-7">
             <motion.p
               {...fade(0.12)}
               style={{
@@ -150,10 +150,11 @@ export default function About() {
                 style={{
                   background: "#181818",
                   border: "1.5px solid rgba(255,224,52,0.12)",
-                  padding: "20px 24px",
+                  padding: "18px 20px",
                   display: "flex",
-                  alignItems: "center",
-                  gap: "20px",
+                  flexDirection: "column",
+                  alignItems: "flex-start",
+                  gap: "12px",
                   transition: "border-color 0.2s",
                 }}
                 whileHover={{ borderColor: "rgba(255,224,52,0.4)" } as any}
@@ -161,12 +162,11 @@ export default function About() {
                 <p
                   style={{
                     fontFamily: "'Syne', sans-serif",
-                    fontSize: "36px",
+                    fontSize: "clamp(28px, 7vw, 36px)",
                     fontWeight: 900,
                     color: Y,
                     lineHeight: 1,
                     flexShrink: 0,
-                    minWidth: "60px",
                   }}
                 >
                   {stat.num}

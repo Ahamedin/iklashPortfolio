@@ -107,7 +107,7 @@ export default function ExperiencePage() {
       {/* Grid */}
       <div className="absolute inset-0 pointer-events-none grid-bg" />
 
-      <div className="relative z-10 container mx-auto px-6 md:px-12 py-24">
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 md:px-12 py-16 sm:py-24">
 
         {/* Section label */}
         <motion.div {...fade(0)} className="mb-6">
@@ -131,7 +131,7 @@ export default function ExperiencePage() {
 
           <div className="space-y-10">
             {items.map((item, i) => (
-              <motion.div key={i} {...fade(0.08 + i * 0.07)} className="flex gap-0 md:gap-8">
+              <motion.div key={i} {...fade(0.08 + i * 0.07)} className="flex flex-col md:flex-row gap-4 md:gap-8">
 
                 {/* Date col */}
                 <div className="hidden md:flex flex-col items-end" style={{ minWidth: "112px", paddingTop: "4px" }}>
@@ -151,7 +151,7 @@ export default function ExperiencePage() {
                     flex: 1,
                     background: "#181818",
                     border: "1.5px solid rgba(255,224,52,0.1)",
-                    padding: "20px 24px",
+                    padding: "18px 18px",
                     transition: "border-color 0.2s",
                   }}
                   onMouseEnter={(e) => (e.currentTarget.style.borderColor = "rgba(255,224,52,0.35)")}
@@ -165,7 +165,7 @@ export default function ExperiencePage() {
                   <div className="flex items-start gap-3 mt-1">
                     <div style={{ color: Y, marginTop: "2px", flexShrink: 0 }}>{item.icon}</div>
                     <div style={{ flex: 1 }}>
-                      <h3 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 800, fontSize: "15px", color: "rgba(240,234,214,0.95)", letterSpacing: "-0.01em" }}>
+                      <h3 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 800, fontSize: "clamp(14px, 3.6vw, 15px)", color: "rgba(240,234,214,0.95)", letterSpacing: "-0.01em" }}>
                         {item.role}
                       </h3>
                       <div style={{ display: "flex", flexWrap: "wrap", gap: "4px 12px", marginTop: "4px" }}>

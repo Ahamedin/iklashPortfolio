@@ -35,7 +35,7 @@ export default function ResumePage() {
           </div>
         </div>
       ) : (
-        <div className="relative z-10 container mx-auto px-4 py-20">
+        <div className="relative z-10 container mx-auto px-4 sm:px-6 md:px-12 py-16 sm:py-20">
           {/* Header */}
           <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="mb-12">
             <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "10px", letterSpacing: "0.22em", textTransform: "uppercase", color: "rgba(255,224,52,0.4)", display: "flex", alignItems: "center", gap: "12px", marginBottom: "12px" }}>
@@ -60,7 +60,7 @@ export default function ResumePage() {
 
               {/* Sidebar */}
               <div
-                className="lg:col-span-3 p-6"
+                className="lg:col-span-3 p-4 sm:p-6"
                 style={{ background: "#181818", borderRight: "1px solid rgba(255,224,52,0.1)" }}
               >
                 <h2 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 800, fontSize: "16px", color: "rgba(240,234,214,0.9)", marginBottom: "4px" }}>

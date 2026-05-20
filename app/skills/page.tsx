@@ -73,7 +73,7 @@ export default function Skills() {
     <div id="skills-page" className="min-h-screen w-full relative" style={{ background: B }}>
       <div className="absolute inset-0 pointer-events-none grid-bg" />
 
-      <div className="relative z-10 container mx-auto px-6 md:px-12 py-24">
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 md:px-12 py-16 sm:py-24">
 
         {/* Section label */}
         <motion.div {...fade(0)} className="mb-6">
@@ -91,7 +91,7 @@ export default function Skills() {
         </motion.h1>
 
         {/* Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-5xl">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 max-w-5xl">
           {Object.entries(skills).map(([cat, list], ci) => (
             <motion.div
               key={cat}
@@ -105,7 +105,7 @@ export default function Skills() {
               whileHover={{ borderColor: "rgba(255,224,52,0.3)" } as any}
             >
               {/* Category header */}
-              <div style={{ padding: "16px 20px", borderBottom: "1px solid rgba(255,224,52,0.08)", display: "flex", alignItems: "center", gap: "12px" }}>
+                <div style={{ padding: "14px 16px", borderBottom: "1px solid rgba(255,224,52,0.08)", display: "flex", alignItems: "center", gap: "12px" }}>
                 <div style={{ color: Y, opacity: 0.8 }}>{catIcons[cat]}</div>
                 <h2 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 800, fontSize: "15px", color: "rgba(240,234,214,0.9)", letterSpacing: "-0.01em" }}>
                   {cat}
@@ -113,7 +113,7 @@ export default function Skills() {
               </div>
 
               {/* Skills */}
-              <div style={{ padding: "16px 20px" }}>
+              <div style={{ padding: "14px 16px" }}>
                 <div className="flex flex-wrap gap-2">
                   {list.map((skill, si) => (
                     <motion.div

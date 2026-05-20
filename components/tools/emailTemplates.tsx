@@ -10,40 +10,40 @@ export const emailTemplates: EmailTemplate[] = [
   {
     title: "Professional Introduction",
     icon: "👔",
-    description: "Introduce yourself to Rushikesh for networking.",
+    description: "Introduce yourself to Iklash for networking.",
     prompt:
-      "Write a professional email to Rushikesh Nimkar initiating a professional connection. I found his portfolio impressive and want to introduce myself as a fellow developer/professional. Express interest in keeping in touch for potential future opportunities or knowledge sharing.",
+      "Write a professional email to Iklash Ahamed initiating a professional connection. I found his portfolio impressive and want to introduce myself as a fellow developer/professional. Express interest in keeping in touch for potential future opportunities or knowledge sharing.",
     tags: ["Business", "Networking"],
   },
   {
     title: "Project Proposal",
     icon: "📊",
-    description: "Propose a project for Rushikesh to work on.",
+    description: "Propose a project for Iklash to work on.",
     prompt:
-      "Write a project proposal email to Rushikesh Nimkar. I have a new web application project regarding [Project Topic] and I am looking for a skilled Full Stack Developer. Ask for his availability, rates, and if he would be interested in discussing the project requirements further.",
+      "Write a project proposal email to Iklash Ahamed. I have a new web application project regarding [Project Topic] and I am looking for a skilled Full Stack Developer. Ask for his availability, rates, and if he would be interested in discussing the project requirements further.",
     tags: ["Proposal", "Business"],
   },
   {
     title: "Follow-up Message",
     icon: "🤝",
-    description: "Follow up with Rushikesh after a meeting.",
+    description: "Follow up with Iklash after a meeting.",
     prompt:
-      "Write a follow-up email to Rushikesh Nimkar regarding our recent conversation/interview. Thank him for his time, reiterate my strong interest in having him join our team/project, and ask about the next steps in the process.",
+      "Write a follow-up email to Iklash Ahamed regarding our recent conversation/interview. Thank him for his time, reiterate my strong interest in having him join our team/project, and ask about the next steps in the process.",
     tags: ["Follow-up", "Networking"],
   },
   {
     title: "Collaboration",
     icon: "🤝",
-    description: "Propose a collaboration to Rushikesh.",
+    description: "Propose a collaboration to Iklash.",
     prompt:
-      "Write an email to Rushikesh Nimkar proposing a collaboration opportunity. I am working on an innovative open-source project/startup idea and believe his skills in Next.js and frontend development would be invaluable. Ask if he is open to a quick call to hear more about it.",
+      "Write an email to Iklash Ahamed proposing a collaboration opportunity. I am working on an innovative open-source project/startup idea and believe his skills in Next.js and frontend development would be invaluable. Ask if he is open to a quick call to hear more about it.",
     tags: ["Collaboration", "Business"],
   },
   {
     title: "Hire Me",
     icon: "💼",
-    description: "Recruit Rushikesh for a job opportunity.",
-    prompt: `Write a professional email as a tech recruiter reaching out to hire Rushikesh Nimkar. Include these details:
+    description: "Recruit Iklash for a job opportunity.",
+    prompt: `Write a professional email as a tech recruiter reaching out to hire Iklash Ahamed. Include these details:
   
   My name is [Your Name]
   Position: Technical Recruiter
@@ -64,9 +64,9 @@ export const emailTemplates: EmailTemplate[] = [
   {
     title: "General Inquiry",
     icon: "💡",
-    description: "Ask Rushikesh a general question.",
+    description: "Ask Iklash a general question.",
     prompt:
-      "Write a friendly email to Rushikesh Nimkar. I came across his work and have a specific question about his tech stack or one of his projects. Keep it concise and respectful of his time.",
+      "Write a friendly email to Iklash Ahamed. I came across his work and have a specific question about his tech stack or one of his projects. Keep it concise and respectful of his time.",
     tags: ["Inquiry", "General"],
   },
 ];

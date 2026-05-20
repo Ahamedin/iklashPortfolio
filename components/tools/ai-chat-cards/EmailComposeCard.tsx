@@ -126,7 +126,7 @@ export const EmailComposeCard: React.FC<EmailComposeCardProps> = ({
                     <FaCheck className="text-white w-8 h-8" />
                 </motion.div>
                 <h3 className="text-xl font-semibold text-white mb-2">Email Sent!</h3>
-                <p className="text-[var(--gray-400)]">Rushikesh will get back to you soon.</p>
+                <p className="text-[var(--gray-400)]">Iklash will get back to you soon.</p>
             </motion.div>
         );
     }

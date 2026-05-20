@@ -51,7 +51,7 @@ export default function HomePage() {
       <div className="relative w-full flex flex-col lg:flex-row min-h-screen" style={{ zIndex: 2 }}>
 
         {/* ── YELLOW / LEFT ── */}
-        <div className="flex-1 flex flex-col justify-between px-8 md:px-12 lg:px-16 py-16 lg:py-20">
+        <div className="flex-1 flex flex-col justify-between px-5 sm:px-8 md:px-12 lg:px-16 py-12 sm:py-16 lg:py-20">
           <div>
             {/* Eyebrow */}
             <div className="flex items-center gap-3 mb-10" style={fade("0s")}>
@@ -81,7 +81,7 @@ export default function HomePage() {
             </div>
 
             {/* Role */}
-            <div className="flex items-center gap-4 mb-8" style={fade("0.14s")}>
+            <div className="flex flex-wrap items-center gap-4 mb-8" style={fade("0.14s")}>
               <div style={{ width: "40px", height: "2px", background: BLACK, flexShrink: 0 }} />
               <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "11px", letterSpacing: "0.12em", color: BLACK, textTransform: "uppercase", fontWeight: 600 }}>
                 M / PERN · Next.js · AI · LangChain
@@ -103,10 +103,11 @@ export default function HomePage() {
             </div>
 
             {/* CTAs + Socials */}
-            <div className="flex flex-wrap items-center gap-3" style={fade("0.32s")}>
+            <div className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-3" style={fade("0.32s")}>
               <a
                 href="/resume"
-                style={{ fontFamily: "'Syne', sans-serif", fontSize: "12px", fontWeight: 800, letterSpacing: "0.12em", textTransform: "uppercase", color: YELLOW, background: BLACK, padding: "12px 28px", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "8px", transition: "opacity 0.2s" }}
+                style={{ fontFamily: "'Syne', sans-serif", fontSize: "12px", fontWeight: 800, letterSpacing: "0.12em", textTransform: "uppercase", color: YELLOW, background: BLACK, padding: "12px 28px", textDecoration: "none", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "8px", transition: "opacity 0.2s" }}
+                className="w-full sm:w-auto"
                 onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.opacity = "0.85")}
                 onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.opacity = "1")}
               >
@@ -116,7 +117,8 @@ export default function HomePage() {
 
               <a
                 href="/contact"
-                style={{ fontFamily: "'Syne', sans-serif", fontSize: "12px", fontWeight: 800, letterSpacing: "0.12em", textTransform: "uppercase", color: BLACK, background: "transparent", padding: "11px 28px", border: `2px solid ${BLACK}`, textDecoration: "none", transition: "background 0.2s ease, color 0.2s ease" }}
+                style={{ fontFamily: "'Syne', sans-serif", fontSize: "12px", fontWeight: 800, letterSpacing: "0.12em", textTransform: "uppercase", color: BLACK, background: "transparent", padding: "11px 28px", border: `2px solid ${BLACK}`, textDecoration: "none", transition: "background 0.2s ease, color 0.2s ease", display: "inline-flex", alignItems: "center", justifyContent: "center" }}
+                className="w-full sm:w-auto"
                 onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = BLACK; (e.currentTarget as HTMLElement).style.color = YELLOW; }}
                 onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "transparent"; (e.currentTarget as HTMLElement).style.color = BLACK; }}
               >
@@ -147,7 +149,7 @@ export default function HomePage() {
           </div>
 
           {/* Stats */}
-          <div className="flex gap-8 pt-6 mt-12" style={{ ...fade("0.4s"), borderTop: `2px solid rgba(13,13,13,0.2)` }}>
+          <div className="flex flex-col sm:flex-row sm:gap-8 gap-5 pt-6 mt-12" style={{ ...fade("0.4s"), borderTop: `2px solid rgba(13,13,13,0.2)` }}>
             {STATS.map(({ num, label }) => (
               <div key={label}>
                 <p style={{ fontSize: "clamp(24px, 4vw, 32px)", fontWeight: 900, color: BLACK, lineHeight: 1 }}>{num}</p>
@@ -159,7 +161,7 @@ export default function HomePage() {
 
         {/* ── DARK / RIGHT ── */}
         <div
-          className="lg:w-[340px] flex-shrink-0 flex flex-col justify-end relative"
+          className="hidden lg:w-[340px] lg:flex flex-shrink-0 flex-col justify-end relative"
           style={{ background: BLACK, padding: "32px 28px", minHeight: "300px" }}
         >
           {/* Grid */}

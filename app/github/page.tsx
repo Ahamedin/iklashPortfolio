@@ -21,7 +21,7 @@ export default function GitHub() {
     <div id="github-page" className="min-h-screen w-full relative" style={{ background: "#111111" }}>
       <div className="absolute inset-0 pointer-events-none grid-bg" />
 
-      <div className="relative z-10 container mx-auto px-6 md:px-12 py-24">
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 md:px-12 py-16 sm:py-24">
 
         {/* Label */}
         <motion.div {...fade(0)} className="mb-6">
@@ -42,7 +42,8 @@ export default function GitHub() {
         <motion.div
           {...fade(0.12)}
           onViewportEnter={() => setVisible(true)}
-          style={{ background: "#181818", border: "1.5px solid rgba(255,224,52,0.12)", padding: "24px 28px", transition: "border-color 0.2s" }}
+          className="p-5 sm:p-6 lg:p-7"
+          style={{ background: "#181818", border: "1.5px solid rgba(255,224,52,0.12)", transition: "border-color 0.2s" }}
           whileHover={{ borderColor: "rgba(255,224,52,0.3)" } as any}
         >
           {/* Card header */}
@@ -89,7 +90,7 @@ export default function GitHub() {
         </motion.div>
 
         {/* Stats strip */}
-        <motion.div {...fade(0.2)} className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+        <motion.div {...fade(0.2)} className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mt-6">
           {[
             { label: "Total Commits", val: "200+" },
             { label: "Repositories", val: "10+" },
