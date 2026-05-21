@@ -11,14 +11,12 @@ import { UnifiedAIInput } from "../components/tools/UnifiedAIInput";
 import { useState, useEffect, useCallback, useRef } from "react";
 import GitHub from "./github/page";
 import NeuralBackground from "../components/neural-background";
-import { useThemeHandler, useMessageHandler, initializeChat } from "../components/tools/ai-chat/chat-utils";
+import { useMessageHandler, initializeChat } from "../components/tools/ai-chat/chat-utils";
 import { ClippyAssistant } from "../components/ui/ClippyAssistant";
 
 export default function Home() {
-  // Theme and Message Handlers
-  const themeHandlers = useThemeHandler();
   // Lifted Chat State
-  const messageHandlers = useMessageHandler(themeHandlers);
+  const messageHandlers = useMessageHandler();
   const {
     messages,
     setMessages,
@@ -26,9 +24,7 @@ export default function Home() {
     isSearching,
     error,
     setError,
-    processThemeRequest,
     processMessage,
-    isThemeRequest,
   } = messageHandlers;
 
   // UI State
@@ -76,15 +72,11 @@ export default function Home() {
     setMessages((prev) => [...prev, userMessage, assistantMessage]);
 
     // Clear input
-    const currentInput = input;
     setInput("");
 
     // Process Request
     try {
-      const isTheme = isThemeRequest(userMessage.content);
-      const response = isTheme
-        ? await processThemeRequest(userMessage.content)
-        : await processMessage(userMessage.content);
+      const response = await processMessage(userMessage.content);
 
       setMessages((prev) =>
         prev.map((msg, idx) =>
@@ -219,8 +211,6 @@ export default function Home() {
         isChatOpen={isChatOpen}
         isInputVisible={isInputVisible}
         buttonPosition={buttonPosition}
-        themeHandlers={themeHandlers}
-        isThemeRequest={isThemeRequest}
       />
 
       {/* Full Page Chat Modal - Background & Messages */}

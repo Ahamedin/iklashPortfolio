@@ -26,54 +26,23 @@ export interface PredefinedPrompt {
 
 // Predefined prompts for the horizontal scroll suggestions
 export const predefinedPrompts: PredefinedPrompt[] = [
-  // Theme prompts
+  // Common questions
   {
-    icon: "🌙",
-    prefix: "Theme:",
-    prompt: "dark mode with blue accents",
-    category: "theme",
+    icon: "🙋",
+    prefix: "",
+    prompt: "Can you tell me about yourself?",
+    category: "info",
   },
   {
-    icon: "📱",
-    prefix: "Theme:",
-    prompt: "hide navbar and make content wider",
-    category: "theme",
+    icon: "🧰",
+    prefix: "",
+    prompt: "What technologies do you use?",
+    category: "info",
   },
-  {
-    icon: "🔤",
-    prefix: "Theme:",
-    prompt: "larger text and serif fonts",
-    category: "theme",
-  },
-  {
-    icon: "🌃",
-    prefix: "Theme:",
-    prompt: "cyberpunk neon city vibes",
-    category: "theme",
-  },
-  {
-    icon: "📜",
-    prefix: "Theme:",
-    prompt: "retro terminal aesthetic with monospace font",
-    category: "theme",
-  },
-  {
-    icon: "⚪",
-    prefix: "Theme:",
-    prompt: "brutalist all-caps concrete-style typography",
-    category: "theme",
-  },
-  // Information prompts
   {
     icon: "📊",
     prefix: "",
     prompt: "What are your skills?",
-    category: "info",
-  },
-  {
-    icon: "💰",
-    prefix: "",
-    prompt: "what was price pool of Sui overflow hackathon?",
     category: "info",
   },
   {
@@ -94,13 +63,34 @@ export const predefinedPrompts: PredefinedPrompt[] = [
     prompt: "What are your achievements?",
     category: "info",
   },
-
-  // Contact prompts
   {
     icon: "📧",
     prefix: "",
     prompt: "How can I contact you?",
     category: "contact",
   },
- 
+  {
+    icon: "💬",
+    prefix: "",
+    prompt: "Do you have a preferred way to communicate?",
+    category: "info",
+  },
+  {
+    icon: "🔍",
+    prefix: "",
+    prompt: "What kind of work are you looking for?",
+    category: "info",
+  },
+  {
+    icon: "📝",
+    prefix: "",
+    prompt: "Can you summarize your background?",
+    category: "info",
+  },
+  {
+    icon: "✨",
+    prefix: "",
+    prompt: "What makes your portfolio unique?",
+    category: "info",
+  },
 ];

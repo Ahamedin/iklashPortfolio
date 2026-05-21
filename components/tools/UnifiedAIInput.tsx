@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { IoSend, IoClose, IoRefresh } from "react-icons/io5";
+import { IoSend, IoClose } from "react-icons/io5";
 import { CgSpinner } from "react-icons/cg";
 import { predefinedPrompts } from "@/data/prompt-data";
 
@@ -15,9 +15,6 @@ interface UnifiedAIInputProps {
     isChatOpen: boolean;
     isInputVisible: boolean;
     buttonPosition: { right: number; bottom: number };
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    themeHandlers: any;
-    isThemeRequest: (text: string) => boolean;
 }
 
 export const UnifiedAIInput: React.FC<UnifiedAIInputProps> = ({
@@ -29,8 +26,6 @@ export const UnifiedAIInput: React.FC<UnifiedAIInputProps> = ({
     isChatOpen,
     isInputVisible,
     buttonPosition,
-    themeHandlers,
-    isThemeRequest,
 }) => {
     const [windowWidth, setWindowWidth] = useState(0);
     const [isPromptPanelExpanded, setIsPromptPanelExpanded] = useState(false);
@@ -212,22 +207,6 @@ export const UnifiedAIInput: React.FC<UnifiedAIInputProps> = ({
                                             </svg>
                                         </button>
 
-                                        {/* Simplified Theme Toggle button without the sibling Reset button */}
-                                        <button
-                                            type="button"
-                                            onClick={() => {
-                                                const isTheme = isThemeRequest(input);
-                                                setInput(isTheme ? input.replace(/^(theme:|search:)\s*/i, "").trim() : `Theme: ${input.replace(/^(theme:|search:)\s*/i, "").trim()}`);
-                                                inputRef.current?.focus();
-                                            }}
-                                            className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-200 border shadow-lg backdrop-blur-sm ${isThemeRequest(input)
-                                                ? "bg-indigo-500/20 text-indigo-400 border-indigo-500/30"
-                                                : "bg-white/5 text-white/40 border-white/10 hover:bg-white/10 hover:text-white"
-                                                }`}
-                                            title="Toggle Theme Mode"
-                                        >
-                                            <span className="text-xl">🎨</span>
-                                        </button>
                                     </motion.div>
                                 )}
                             </AnimatePresence>
@@ -286,7 +265,7 @@ export const UnifiedAIInput: React.FC<UnifiedAIInputProps> = ({
                                         value={input}
                                         onChange={(e) => setInput(e.target.value)}
                                         onKeyDown={handleKeyDown}
-                                        placeholder={isThemeRequest(input) ? "Describe UI changes..." : "Ask me anything..."}
+                                        placeholder="Ask me anything..."
                                         disabled={isLoading}
                                         className="w-full bg-transparent text-base md:text-lg text-white placeholder-white/40 focus:outline-none h-full px-2 md:px-4"
                                         style={{ caretColor: "rgba(99, 102, 241, 0.8)" }}

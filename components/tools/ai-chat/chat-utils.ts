@@ -222,7 +222,7 @@ export const useThemeHandler = () => {
  * Hook for handling messages and API calls
  */
 export const useMessageHandler = (
-  themeHandlers: ReturnType<typeof useThemeHandler>
+  themeHandlers?: unknown
 ) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -233,9 +233,9 @@ export const useMessageHandler = (
   // Use JWT auth hook
   const { generateNewToken } = useJWTAuth();
 
-  // Destructure only what we need from themeHandlers
-  const { setIsThemeMode, setThemeChangeHistory, applyThemeChanges } =
-    themeHandlers;
+  const setIsThemeMode = useCallback(() => {}, []);
+  const setThemeChangeHistory = useCallback(() => {}, []);
+  const applyThemeChanges = useCallback(() => {}, []);
 
   // Function to determine if a message is a theme request
   const isThemeRequest = useCallback((message: string) => {
