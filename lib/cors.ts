@@ -20,6 +20,8 @@ function getAllowedOrigins(): string[] {
 
   // Default Origins
   return [
+    "https://iklash-portfolio.vercel.app",
+    "https://www.iklash-portfolio.vercel.app",
     "https://iklashahamed.vercel.app",
     "https://www.iklashahamed.vercel.app",
     "http://localhost:3000",
