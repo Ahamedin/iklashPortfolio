@@ -6,26 +6,33 @@ import {
 // Get Allowed Origins
 function getAllowedOrigins(): string[] {
 
-  // From Environment Variable
-  if (
-    process.env.ALLOWED_ORIGINS
-  ) {
-
-    return process.env.ALLOWED_ORIGINS
-      .split(",")
-      .map((origin) =>
-        origin.trim()
-      );
-  }
-
-  // Default Origins
-  return [
+  const defaultOrigins = [
     "https://iklash-portfolio.vercel.app",
     "https://www.iklash-portfolio.vercel.app",
     "https://iklashahamed.vercel.app",
     "https://www.iklashahamed.vercel.app",
     "http://localhost:3000",
   ];
+
+  if (
+    process.env.ALLOWED_ORIGINS
+  ) {
+
+    const envOrigins =
+      process.env.ALLOWED_ORIGINS
+        .split(",")
+        .map((origin) => origin.trim())
+        .filter(Boolean);
+
+    return Array.from(
+      new Set([
+        ...defaultOrigins,
+        ...envOrigins,
+      ])
+    );
+  }
+
+  return defaultOrigins;
 }
 
 // Validate Origin
