@@ -7,6 +7,8 @@ import {
 function getAllowedOrigins(): string[] {
 
   const defaultOrigins = [
+    "https://iklashahamed.dev",
+    "https://www.iklashahamed.dev",
     "https://iklash-portfolio.vercel.app",
     "https://www.iklash-portfolio.vercel.app",
     "https://iklashahamed.vercel.app",
