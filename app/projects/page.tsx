@@ -73,7 +73,8 @@ export default function Projects() {
     const openItem = document.querySelector("#projects-grid .item.is-open") as HTMLElement | null;
     if (layoutRef.current) { layoutRef.current.update(() => { dialog.close(); openItem?.classList.remove("is-open"); openItem?.focus(); }); }
     else { dialog.close(); openItem?.classList.remove("is-open"); }
-    document.body.style.overflow = "auto";
+    document.body.style.overflowX = "hidden";
+    document.body.style.overflowY = "auto";
   }, []);
 
   const openModal = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
@@ -86,7 +87,8 @@ export default function Projects() {
     if (ytMedia) { const ytId = ytMedia.getAttribute("data-youtube-id"); if (ytId) { ytMedia.innerHTML = `<iframe src="https://www.youtube.com/embed/${ytId}?autoplay=1&mute=0&loop=1&playlist=${ytId}" class="item-media-iframe" title="YouTube video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`; } }
     if (layoutRef.current) { layoutRef.current.update(() => { dialog.showModal(); item.classList.add("is-open"); }); }
     else { dialog.showModal(); item.classList.add("is-open"); }
-    document.body.style.overflow = "hidden";
+    // Only prevent vertical scrolling — keep horizontal overflow locked by CSS
+    document.body.style.overflowY = "hidden";
   }, [closeModal]);
 
   useEffect(() => {

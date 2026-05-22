@@ -85,7 +85,7 @@ export default function Skills() {
 
         <motion.h1
           {...fade(0.06)}
-          style={{ fontFamily: "'Syne', sans-serif", fontSize: "clamp(44px, 7vw, 80px)", fontWeight: 900, lineHeight: 0.92, letterSpacing: "-0.04em", color: Y, marginBottom: "56px" }}
+          style={{ fontFamily: "'Syne', sans-serif", fontSize: "clamp(38px, 6.5vw, 80px)", fontWeight: 900, lineHeight: 0.92, letterSpacing: "-0.04em", color: Y, marginBottom: "56px", maxWidth: "100%" }}
         >
           Skills &<br />Technologies
         </motion.h1>
