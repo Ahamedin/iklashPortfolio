@@ -5,10 +5,10 @@ Disallow: /api/
 Disallow: /admin/
 
 # Host
-Host: https://www.rushikeshnimkar.com
+Host: https://www.iklashahamed.dev
 
 # Sitemaps
-Sitemap: https://www.rushikeshnimkar.com/sitemap.xml
+Sitemap: https://www.iklashahamed.dev/sitemap.xml
 
 # Google Bot
 User-agent: Googlebot

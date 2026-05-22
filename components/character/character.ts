@@ -10,7 +10,7 @@ LinkedIn: https://www.linkedin.com/in/iklash
 
 
 Summary:
-I am a passionate full-stack developer with expertise in JavaScript, TypeScript, React.js, Next.js, Node.js, PostgreSQL, and modern web technologies. I enjoy building scalable, responsive, and user-friendly applications with clean architecture and optimized performance. My interests include AI-powered applications, AR/VR experiences, blockchain solutions, and modern UI/UX development. I focus on writing maintainable code and creating impactful digital products.
+I am a passionate full-stack developer with expertise in JavaScript, TypeScript, React.js, Next.js, Node.js, PostgreSQL, and modern web technologies. I enjoy building scalable, responsive, and user-friendly applications with clean architecture and optimized performance. My interests include AI-powered applications, AR/VR experiences, and modern UI/UX development. I focus on writing maintainable code and creating impactful digital products.
 
 Education:
 
@@ -18,7 +18,7 @@ Kalasalingam Academy of Research and Education
 B.Tech Information Technology | 2023 - 2027
 
 Relevant Coursework:
-Blockchain, Data Science, IoT, Computer Organization & Architecture, Web Development
+Data Science, IoT, Computer Organization & Architecture, Web Development
 
 
 Experience:
@@ -47,7 +47,7 @@ Tools & Platforms:
 Git, GitHub, Docker, Prisma, Postman, XAMPP, Clerk
 
 Core Areas:
-Full-Stack Development, AI Applications, Blockchain, AR/VR Development, UI/UX Design
+Full-Stack Development, AI Applications, AR/VR Development, UI/UX Design
 
 
 Projects / Open-Source:

@@ -64,7 +64,7 @@ const items: TimelineItem[] = [
     location: "Virudhunagar, Tamil Nadu",
     body: (
       <p style={{ fontFamily: "'Inter', system-ui", fontSize: "13px", lineHeight: 1.8, color: "rgba(240,234,214,0.6)", marginTop: "12px" }}>
-        Pursuing B.Tech in Information Technology with focus on Blockchain, IoT, Data Science,
+        Pursuing B.Tech in Information Technology with focus on IoT, Data Science,
         Web Development, and Software Engineering fundamentals. Built multiple real-world
         projects using MERN Stack, Next.js, PostgreSQL, and AI technologies.
       </p>

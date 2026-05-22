@@ -70,7 +70,7 @@ const DISCORD_PATTERN = /discord|server|chat|community/i;
 const GITSPLIT_PATTERN =
     /gitsplit|funding platform|open-source funding|ethglobal/i;
 const CRYPTORAGE_PATTERN =
-    /cryptorage|chrome extension|secure storage|dorahacks|walrus blockchain/i;
+    /cryptorage|chrome extension|secure storage|dorahacks|walrus/i;
 const TERMINAL_AI_PATTERN =
     /terminal ai|assistant|cli tool|command line|npm package|terminal-ai-assistant/i;
 

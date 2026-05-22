@@ -28,7 +28,7 @@ The profile image container has ID "home-profile-image-container" and is impleme
 The Bitcoin symbol has ID "home-bitcoin-symbol" and is implemented as a motion.div with hover animations.
 
 The text content section has ID "home-text-content" and contains all text and interactive elements.
-The main heading has ID "home-title" and is implemented as a motion.h1 with fade animations. It contains the name "Rushikesh Nimkar".
+The main heading has ID "home-title" and is implemented as a motion.h1 with fade animations. It contains the name "Iklash Ahamed".
 The subtitle has ID "home-subtitle" and is implemented as a motion.p element describing the professional role.
 The detailed description has ID "home-description" and is implemented as a motion.p providing background information.
 Action buttons are contained in a div with ID "home-action-buttons".

@@ -18,7 +18,6 @@ export const defaultMetadata = {
     "Software Engineer",
     "Frontend Developer",
     "Backend Developer",
-    "Blockchain Developer",
     "AR VR Developer"
   ],
 
@@ -35,7 +34,7 @@ export const defaultMetadata = {
     title: "Iklash Ahamed | Full Stack Developer",
 
     description:
-      "Full Stack Developer specializing in Next.js, React.js, AI-powered applications, blockchain, and immersive web experiences.",
+      "Full Stack Developer specializing in Next.js, React.js, AI-powered applications, and immersive web experiences.",
 
     siteName: "Iklash Ahamed Portfolio",
 
@@ -61,7 +60,7 @@ export const defaultMetadata = {
     title: "Iklash Ahamed | Full Stack Developer",
 
     description:
-      "Full Stack Developer specializing in Next.js, React.js, AI-powered applications, blockchain, and modern web development.",
+      "Full Stack Developer specializing in Next.js, React.js, AI-powered applications, and modern web development.",
 
     creator: "@IklashAhamed",
 

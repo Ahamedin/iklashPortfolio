@@ -54,11 +54,11 @@ export const emailTemplates: EmailTemplate[] = [
   Role Details:
   - Position: Full Stack Developer
   - Level: [Junior/Mid/Senior]
-  - Tech Stack: React, TypeScript, Node.js, Blockchain
+  - Tech Stack: React, TypeScript, Node.js, modern web applications
   - Salary Range: [Amount] per year
   - Benefits: Health insurance, stock options, flexible hours, etc.
   
-  I've reviewed your portfolio projects (CryptoRage and GitSplit) and your experience with modern web technologies and blockchain development aligns perfectly with what we're looking for. Let's schedule a call to discuss this opportunity in detail.`,
+  I've reviewed your portfolio projects (CryptoRage and GitSplit) and your experience with modern web technologies aligns perfectly with what we're looking for. Let's schedule a call to discuss this opportunity in detail.`,
     tags: ["Recruitment", "Business"],
   },
   {

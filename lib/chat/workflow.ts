@@ -389,7 +389,6 @@ You specialize in:
 - Node.js
 - PostgreSQL
 - AI-powered applications
-- Blockchain
 - AR/VR web experiences
 
 Your major projects:

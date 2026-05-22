@@ -279,7 +279,7 @@ export function generateStructuredResponse(
         period: "2023 - 2027",
 
         description:
-          "Focused on Blockchain, Data Science, IoT, COA, and Web Development.",
+          "Focused on Data Science, IoT, COA, and Web Development.",
       },
     ],
 
