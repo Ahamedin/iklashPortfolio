@@ -66,6 +66,21 @@ export default function HomePage() {
               </span>
             </div>
 
+            {/* Mobile photo */}
+            <div className="lg:hidden mb-8" style={fade("0.04s")}>
+              <div className="mx-auto relative w-[min(72vw,220px)] aspect-square border border-black/15 bg-black/5">
+                <Image
+                  src="/iklash1.PNG"
+                  alt="Iklash Ahamed — Full Stack Developer"
+                  fill
+                  priority
+                  className="object-cover"
+                  style={{ filter: "contrast(1.05) saturate(0.85)" }}
+                  sizes="(max-width: 768px) 72vw, 220px"
+                />
+              </div>
+            </div>
+
             {/* Name */}
             <div className="mb-6" style={fade("0.08s")}>
               <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "12px", letterSpacing: "0.08em", color: BLACK, opacity: 0.5, marginBottom: "8px" }}>
