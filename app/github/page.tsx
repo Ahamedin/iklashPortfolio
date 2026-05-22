@@ -1,7 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import { FiGithub } from "react-icons/fi";
-import { useState } from "react";
+import { SiLeetcode } from "react-icons/si";
 import { GitHubContributions } from "@/components/tools/githubcontribution";
 
 const Y = "#FFE034";
@@ -15,8 +14,6 @@ const fade = (delay = 0) => ({
 });
 
 export default function GitHub() {
-  const [visible, setVisible] = useState(false);
-
   return (
     <div id="github-page" className="min-h-screen w-full relative" style={{ background: "#111111" }}>
       <div className="absolute inset-0 pointer-events-none grid-bg" />
@@ -35,13 +32,12 @@ export default function GitHub() {
           {...fade(0.06)}
           style={{ fontFamily: "'Syne', sans-serif", fontSize: "clamp(44px, 7vw, 80px)", fontWeight: 900, lineHeight: 0.92, letterSpacing: "-0.04em", color: Y, marginBottom: "48px" }}
         >
-          GitHub<br />Contributions
+          LeetCode<br />Daily Tracker
         </motion.h1>
 
         {/* Contribution card */}
         <motion.div
           {...fade(0.12)}
-          onViewportEnter={() => setVisible(true)}
           className="p-5 sm:p-6 lg:p-7"
           style={{ background: "#181818", border: "1.5px solid rgba(255,224,52,0.12)", transition: "border-color 0.2s" }}
           whileHover={{ borderColor: "rgba(255,224,52,0.3)" }}
@@ -50,15 +46,15 @@ export default function GitHub() {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
             <div>
               <h2 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 800, fontSize: "18px", color: "rgba(240,234,214,0.9)", letterSpacing: "-0.02em" }}>
-                Contribution Activity
+                Daily Submission Tracker
               </h2>
               <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "10px", color: "rgba(255,224,52,0.4)", letterSpacing: "0.08em", marginTop: "4px" }}>
-                github.com/Ahamedin
+                leetcode.com/u/IklashAhamed/
               </p>
             </div>
 
             <a
-              href="https://github.com/Ahamedin"
+              href="https://leetcode.com/u/IklashAhamed/"
               target="_blank"
               rel="noopener noreferrer"
               style={{
@@ -74,18 +70,16 @@ export default function GitHub() {
               onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.85")}
               onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
             >
-              <FiGithub size={13} />
+              <SiLeetcode size={13} />
               View Profile
             </a>
           </div>
 
-          {/* Graph */}
+          {/* Tracker */}
           <div style={{ overflowX: "auto" }}>
-            {visible && (
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
-                <GitHubContributions username="Ahamedin" />
-              </motion.div>
-            )}
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.35 }}>
+              <GitHubContributions username="IklashAhamed" />
+            </motion.div>
           </div>
         </motion.div>
 
