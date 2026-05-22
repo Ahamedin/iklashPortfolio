@@ -149,8 +149,8 @@ export const GitHubContributions: React.FC<GitHubContributionsProps> = ({
               role="img"
               aria-label="LeetCode daily submission snake tracker"
               viewBox={`0 0 ${tracker.width} ${tracker.height}`}
-              className="block w-full min-w-[920px]"
-              style={{ maxHeight: "400px" }}
+              className="block w-full min-w-[640px] sm:min-w-[920px]"
+              style={{ maxHeight: "360px" }}
             >
               <defs>
                 <linearGradient id="snake-glow" x1="0%" y1="0%" x2="100%" y2="100%">
