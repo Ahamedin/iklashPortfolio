@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { verifyEmail } from "@/lib/verifyEmail";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaEnvelope, FaPaperPlane, FaCheck, FaSpinner, FaMagic, FaEdit } from "react-icons/fa";
 import { HiSparkles } from "react-icons/hi";
@@ -79,6 +80,11 @@ export const EmailComposeCard: React.FC<EmailComposeCardProps> = ({
         setError("");
 
         try {
+                // verify email before sending
+                const verification = await verifyEmail(formData.senderEmail);
+                if (!verification.isValid) {
+                    throw new Error(verification.error || "Invalid email address");
+                }
             const response = await fetch("/api/send-email", {
                 method: "POST",
                 headers: {

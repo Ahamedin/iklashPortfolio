@@ -7,6 +7,7 @@ import {
   CheckCircle, XCircle,
 } from "lucide-react";
 import { emailTemplates } from "@/components/tools/emailTemplates";
+import { verifyEmail } from "@/lib/verifyEmail";
 import { TextGenerationEffect } from "@/components/ui/TextGenerationEffect";
 import { ChatHistory } from "@/components/contact/ChatHistory";
 
@@ -82,21 +83,38 @@ export default function Contact() {
 
   const handleSendEmail = async () => {
     if (!emailContent || isSending) return;
-    if (mode === "manual") {
-      if (!senderName.trim()) { setStatus("error"); setErrorMessage("Please enter your name"); return; }
-      if (!senderEmail.trim()) { setStatus("error"); setErrorMessage("Please enter your email"); return; }
-      if (!subject.trim()) { setStatus("error"); setErrorMessage("Please enter a subject"); return; }
+
+    // Only allow sending when user explicitly uses Manual mode with a valid email
+    if (mode !== "manual") {
+      setStatus("error");
+      setErrorMessage("Please switch to Manual mode and provide your email before sending.");
+      return;
     }
+
+    if (!senderName.trim()) { setStatus("error"); setErrorMessage("Please enter your name"); return; }
+    if (!senderEmail.trim()) { setStatus("error"); setErrorMessage("Please enter your email"); return; }
+    if (!subject.trim()) { setStatus("error"); setErrorMessage("Please enter a subject"); return; }
+
     setIsSending(true); setStatus("idle"); setErrorMessage("");
+
     try {
+      // Verify email using existing helper which calls /api/verify-email
+      const verification = await verifyEmail(senderEmail);
+      if (!verification.isValid) {
+        setStatus("error");
+        setErrorMessage(verification.error || "Invalid email address");
+        setIsSending(false);
+        return;
+      }
+
       const res = await fetch("/api/send-email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ content: emailContent, prompt: mode === "ai" ? prompt : "Manual Email", senderName: mode === "manual" ? senderName : undefined, senderEmail: mode === "manual" ? senderEmail : undefined, subject }),
+        body: JSON.stringify({ content: emailContent, prompt: "Manual Email", senderName, senderEmail, subject }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Failed to send email");
-      setNewEmail({ id: Date.now().toString(), content: emailContent, subject: subject || "No Subject", senderName: mode === "manual" ? senderName : undefined, senderEmail: mode === "manual" ? senderEmail : undefined, timestamp: Date.now(), mode });
+      setNewEmail({ id: Date.now().toString(), content: emailContent, subject: subject || "No Subject", senderName, senderEmail, timestamp: Date.now(), mode });
       setIsChatOpen(true); setStatus("success");
       setPrompt(""); setEmailContent(""); setSenderName(""); setSenderEmail(""); setSubject("");
     } catch (e) {
@@ -320,7 +338,7 @@ export default function Contact() {
                         <span style={{ position: "absolute", top: -6, right: -6, background: Y, color: B, borderRadius: 0, width: 16, height: 16, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 9, fontWeight: 800 }}>{messageCount}</span>
                       </button>
                     )}
-                    {(emailContent || (mode === "manual" && senderEmail)) && (
+                    {(mode === "manual" && senderEmail.trim() && emailContent) && (
                       <BtnPrimary onClick={handleSendEmail} disabled={isSending}>
                         {isSending ? "…" : <><Send size={11} />Send</>}
                       </BtnPrimary>
