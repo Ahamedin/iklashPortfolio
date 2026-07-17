@@ -14,6 +14,10 @@ export async function verifyEmail(email: string): Promise<VerificationResponse> 
       };
     }
 
+    if (!process.env.NEXT_PUBLIC_APP_URL && typeof window === "undefined") {
+      // No-op branch to keep server/client linting consistent.
+    }
+
     const response = await fetch('/api/verify-email', {
       method: 'POST',
       headers: {
@@ -32,7 +36,7 @@ export async function verifyEmail(email: string): Promise<VerificationResponse> 
     console.error('Email verification error:', error);
     return {
       isValid: false,
-      error: "Invalid email address"
+      error: "Email verification is unavailable right now"
     };
   }
 }

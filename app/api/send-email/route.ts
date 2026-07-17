@@ -19,9 +19,14 @@ async function handler(req: NextRequest) {
         );
       }
 
-      // Verify with Abstract API when configured, but do not fail closed on transient API errors.
-      // We still block clearly invalid/disposable addresses.
-      if (process.env.ABSTRACT_API_KEY) {
+        // Require Abstract API verification for manual sender addresses.
+        if (!process.env.ABSTRACT_API_KEY) {
+          return NextResponse.json(
+            { error: "Email verification not configured on server" },
+            { status: 400 }
+          );
+        }
+
         try {
           const response = await fetch(
             `https://emailvalidation.abstractapi.com/v1/?api_key=${process.env.ABSTRACT_API_KEY}&email=${encodeURIComponent(
@@ -30,30 +35,31 @@ async function handler(req: NextRequest) {
             { cache: "no-store" }
           );
 
-          if (response.ok) {
-            const data = await response.json();
-            const hasValidFormat = Boolean(data?.is_valid_format?.value);
-            const isDisposable = Boolean(data?.is_disposable_email?.value);
-            const isUndeliverable = data?.deliverability === "UNDELIVERABLE";
+          if (!response.ok) {
+            return NextResponse.json(
+              { error: "Email verification failed" },
+              { status: 400 }
+            );
+          }
 
-            if (!hasValidFormat || isDisposable || isUndeliverable) {
-              return NextResponse.json(
-                { error: "Invalid email address" },
-                { status: 400 }
-              );
-            }
-          } else {
-            console.warn(
-              "Abstract email verification unavailable, proceeding with basic validation"
+          const data = await response.json();
+          const hasValidFormat = Boolean(data?.is_valid_format?.value);
+          const isDisposable = Boolean(data?.is_disposable_email?.value);
+          const isDeliverable = data?.deliverability === "DELIVERABLE";
+
+          if (!hasValidFormat || isDisposable || !isDeliverable) {
+            return NextResponse.json(
+              { error: "Invalid email address" },
+              { status: 400 }
             );
           }
         } catch (verificationError) {
-          console.warn(
-            "Abstract email verification failed, proceeding with basic validation:",
-            verificationError
+          console.error("Abstract API verification error:", verificationError);
+          return NextResponse.json(
+            { error: "Email verification failed" },
+            { status: 400 }
           );
         }
-      }
     }
 
     const transporter = nodemailer.createTransport({
@@ -71,18 +77,15 @@ async function handler(req: NextRequest) {
     const emailSubject =
       subject || `AI Generated Email: ${(prompt || "No prompt").substring(0, 50)}...`;
 
-    // Create a from address that includes the name if provided
-    const fromAddress = senderEmail
-      ? senderName
-        ? `"${senderName}" <${process.env.EMAIL_USER}>`
-        : `"${senderEmail}" <${process.env.EMAIL_USER}>`
-      : `"AI Email Generator" <${process.env.EMAIL_USER}>`;
+    // Use the authenticated account as the SMTP From, and set Reply-To
+    const fromAddress = `"AI Email Generator" <${process.env.EMAIL_USER}>`;
 
-    const mailOptions = {
+    const mailOptions: any = {
       from: fromAddress,
       to: process.env.EMAIL_USER,
       subject: emailSubject,
       text: content,
+      replyTo: senderEmail || undefined,
       html: `
         <div style="font-family: Arial, sans-serif; padding: 20px; max-width: 600px;">
           <h2 style="color: #333;">Email Received</h2>
