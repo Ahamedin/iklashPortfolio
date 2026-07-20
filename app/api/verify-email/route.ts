@@ -1,18 +1,45 @@
 import { NextResponse } from "next/server";
+import { resolveMx } from "dns/promises";
+
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const BLOCKED_DOMAINS = new Set([
+  "example.com",
+  "example.net",
+  "example.org",
+  "localhost",
+  "invalid",
+  "test",
+]);
+
+async function hasMxRecords(domain: string) {
+  try {
+    const mxRecords = await resolveMx(domain);
+    return mxRecords.length > 0;
+  } catch {
+    return false;
+  }
+}
 
 export async function POST(req: Request) {
   try {
     const { email } = await req.json();
 
     // Basic format check
-    const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!email || !EMAIL_REGEX.test(email)) {
       return NextResponse.json({ isValid: false, error: "Invalid email address" }, { status: 200 });
     }
 
-    // If no ABSTRACT_API_KEY is configured, fall back to basic format validation.
+    const domain = email.split("@").pop()?.toLowerCase() || "";
+    if (!domain || BLOCKED_DOMAINS.has(domain) || !(await hasMxRecords(domain))) {
+      return NextResponse.json({ isValid: false, error: "Invalid email address" }, { status: 200 });
+    }
+
+    // Require Abstract API for deliverability checks.
     if (!process.env.ABSTRACT_API_KEY) {
-      return NextResponse.json({ isValid: true });
+      return NextResponse.json(
+        { isValid: false, error: "Email verification not configured on server" },
+        { status: 200 }
+      );
     }
 
     const response = await fetch(
@@ -23,9 +50,10 @@ export async function POST(req: Request) {
     );
 
     if (!response.ok) {
-      // If the external service is unavailable, don't fail closed — accept basic format.
-      console.warn("Abstract API unavailable, falling back to regex validation");
-      return NextResponse.json({ isValid: true });
+      return NextResponse.json(
+        { isValid: false, error: "Email verification failed" },
+        { status: 200 }
+      );
     }
 
     const data = await response.json();
@@ -39,7 +67,9 @@ export async function POST(req: Request) {
     return NextResponse.json({ isValid, error: isValid ? undefined : "Invalid email address" });
   } catch (error) {
     console.error("Error verifying email:", error);
-    // On unexpected errors, fall back to not blocking the user (assume invalid).
-    return NextResponse.json({ isValid: false, error: "Invalid email address" }, { status: 500 });
+    return NextResponse.json(
+      { isValid: false, error: "Invalid email address" },
+      { status: 500 }
+    );
   }
 }

@@ -1,8 +1,26 @@
 import { NextResponse, NextRequest } from "next/server";
+import { resolveMx } from "dns/promises";
 import nodemailer from "nodemailer";
 import { applyCors, corsMiddleware } from "@/lib/cors";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const BLOCKED_DOMAINS = new Set([
+  "example.com",
+  "example.net",
+  "example.org",
+  "localhost",
+  "invalid",
+  "test",
+]);
+
+async function hasMxRecords(domain: string) {
+  try {
+    const mxRecords = await resolveMx(domain);
+    return mxRecords.length > 0;
+  } catch {
+    return false;
+  }
+}
 
 async function handler(req: NextRequest) {
   try {
@@ -18,35 +36,53 @@ async function handler(req: NextRequest) {
         );
       }
 
-      // If the Abstract API is configured, use it for stronger validation.
-      if (process.env.ABSTRACT_API_KEY) {
-        try {
-          const response = await fetch(
-            `https://emailvalidation.abstractapi.com/v1/?api_key=${process.env.ABSTRACT_API_KEY}&email=${encodeURIComponent(
-              senderEmail
-            )}`,
-            { cache: "no-store" }
-          );
+      const domain = senderEmail.split("@").pop()?.toLowerCase() || "";
+      if (!domain || BLOCKED_DOMAINS.has(domain) || !(await hasMxRecords(domain))) {
+        return NextResponse.json(
+          { error: "Invalid email address" },
+          { status: 400 }
+        );
+      }
 
-          if (response.ok) {
-            const data = await response.json();
-            const hasValidFormat = Boolean(data?.is_valid_format?.value);
-            const isDisposable = Boolean(data?.is_disposable_email?.value);
-            const isDeliverable = data?.deliverability === "DELIVERABLE";
+      if (!process.env.ABSTRACT_API_KEY) {
+        return NextResponse.json(
+          { error: "Email verification not configured on server" },
+          { status: 400 }
+        );
+      }
 
-            if (!hasValidFormat || isDisposable || !isDeliverable) {
-              return NextResponse.json(
-                { error: "Invalid email address" },
-                { status: 400 }
-              );
-            }
-          }
-        } catch (verificationError) {
-          console.warn(
-            "Abstract email verification failed, proceeding with format validation:",
-            verificationError
+      try {
+        const response = await fetch(
+          `https://emailvalidation.abstractapi.com/v1/?api_key=${process.env.ABSTRACT_API_KEY}&email=${encodeURIComponent(
+            senderEmail
+          )}`,
+          { cache: "no-store" }
+        );
+
+        if (!response.ok) {
+          return NextResponse.json(
+            { error: "Email verification failed" },
+            { status: 400 }
           );
         }
+
+        const data = await response.json();
+        const hasValidFormat = Boolean(data?.is_valid_format?.value);
+        const isDisposable = Boolean(data?.is_disposable_email?.value);
+        const isDeliverable = data?.deliverability === "DELIVERABLE";
+
+        if (!hasValidFormat || isDisposable || !isDeliverable) {
+          return NextResponse.json(
+            { error: "Invalid email address" },
+            { status: 400 }
+          );
+        }
+      } catch (verificationError) {
+        console.error("Abstract email verification failed:", verificationError);
+        return NextResponse.json(
+          { error: "Email verification failed" },
+          { status: 400 }
+        );
       }
     }
 
@@ -60,17 +96,11 @@ async function handler(req: NextRequest) {
       },
     });
 
-    await transporter.verify();
-
     const emailSubject =
       subject || `AI Generated Email: ${(prompt || "No prompt").substring(0, 50)}...`;
 
-    // Keep the previous visible sender style while sending through the authenticated account.
-    const fromAddress = senderEmail
-      ? senderName
-        ? `"${senderName}" <${process.env.EMAIL_USER}>`
-        : `"${senderEmail}" <${process.env.EMAIL_USER}>`
-      : `"AI Email Generator" <${process.env.EMAIL_USER}>`;
+    // Keep the authenticated account as the sender, but preserve the user's address in Reply-To.
+    const fromAddress = `"AI Email Generator" <${process.env.EMAIL_USER}>`;
 
     const mailOptions: any = {
       from: fromAddress,
