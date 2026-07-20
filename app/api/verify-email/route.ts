@@ -34,37 +34,35 @@ export async function POST(req: Request) {
       return NextResponse.json({ isValid: false, error: "Invalid email address" }, { status: 200 });
     }
 
-    // Require Abstract API for deliverability checks.
     if (!process.env.ABSTRACT_API_KEY) {
-      return NextResponse.json(
-        { isValid: false, error: "Email verification not configured on server" },
-        { status: 200 }
-      );
+      return NextResponse.json({ isValid: true });
     }
 
-    const response = await fetch(
-      `https://emailvalidation.abstractapi.com/v1/?api_key=${process.env.ABSTRACT_API_KEY}&email=${encodeURIComponent(
-        email
-      )}`,
-      { cache: "no-store" }
-    );
-
-    if (!response.ok) {
-      return NextResponse.json(
-        { isValid: false, error: "Email verification failed" },
-        { status: 200 }
+    try {
+      const response = await fetch(
+        `https://emailvalidation.abstractapi.com/v1/?api_key=${process.env.ABSTRACT_API_KEY}&email=${encodeURIComponent(
+          email
+        )}`,
+        { cache: "no-store" }
       );
+
+      if (!response.ok) {
+        console.warn(`Abstract API verification returned ${response.status}; falling back to local validation`);
+        return NextResponse.json({ isValid: true });
+      }
+
+      const data = await response.json();
+
+      const isValid =
+        data.is_valid_format?.value &&
+        data.deliverability === "DELIVERABLE" &&
+        !data.is_disposable_email?.value;
+
+      return NextResponse.json({ isValid, error: isValid ? undefined : "Invalid email address" });
+    } catch (error) {
+      console.warn("Abstract API verification failed, falling back to local validation:", error);
+      return NextResponse.json({ isValid: true });
     }
-
-    const data = await response.json();
-
-    // Rich validation from Abstract API
-    const isValid =
-      data.is_valid_format?.value &&
-      data.deliverability === "DELIVERABLE" &&
-      !data.is_disposable_email?.value;
-
-    return NextResponse.json({ isValid, error: isValid ? undefined : "Invalid email address" });
   } catch (error) {
     console.error("Error verifying email:", error);
     return NextResponse.json(

@@ -60,29 +60,22 @@ async function handler(req: NextRequest) {
         );
 
         if (!response.ok) {
-          return NextResponse.json(
-            { error: "Email verification failed" },
-            { status: 400 }
-          );
-        }
+          console.warn(`Abstract API verification returned ${response.status}; falling back to local validation`);
+        } else {
+          const data = await response.json();
+          const hasValidFormat = Boolean(data?.is_valid_format?.value);
+          const isDisposable = Boolean(data?.is_disposable_email?.value);
+          const isDeliverable = data?.deliverability === "DELIVERABLE";
 
-        const data = await response.json();
-        const hasValidFormat = Boolean(data?.is_valid_format?.value);
-        const isDisposable = Boolean(data?.is_disposable_email?.value);
-        const isDeliverable = data?.deliverability === "DELIVERABLE";
-
-        if (!hasValidFormat || isDisposable || !isDeliverable) {
-          return NextResponse.json(
-            { error: "Invalid email address" },
-            { status: 400 }
-          );
+          if (!hasValidFormat || isDisposable || !isDeliverable) {
+            return NextResponse.json(
+              { error: "Invalid email address" },
+              { status: 400 }
+            );
+          }
         }
       } catch (verificationError) {
-        console.error("Abstract email verification failed:", verificationError);
-        return NextResponse.json(
-          { error: "Email verification failed" },
-          { status: 400 }
-        );
+        console.warn("Abstract email verification failed, falling back to local validation:", verificationError);
       }
     }
 
