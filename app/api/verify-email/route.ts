@@ -10,10 +10,9 @@ export async function POST(req: Request) {
       return NextResponse.json({ isValid: false, error: "Invalid email address" }, { status: 200 });
     }
 
-    // If no ABSTRACT_API_KEY is configured, fail closed so the caller
-    // cannot assume unverified addresses are valid.
+    // If no ABSTRACT_API_KEY is configured, fall back to basic format validation.
     if (!process.env.ABSTRACT_API_KEY) {
-      return NextResponse.json({ isValid: false, error: "Email verification not configured on server" }, { status: 200 });
+      return NextResponse.json({ isValid: true });
     }
 
     const response = await fetch(
