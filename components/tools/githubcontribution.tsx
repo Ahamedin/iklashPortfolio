@@ -3,6 +3,7 @@ import React, { useEffect, useMemo, useState } from "react";
 
 interface GitHubContributionsProps {
   username: string;
+  onStatsChange?: (stats: LeetCodeTrackerStats | null) => void;
 }
 
 type DailyCounts = Record<string, number>;
@@ -22,11 +23,62 @@ type TrackerData = {
   daily: DailyCounts;
 };
 
+export type LeetCodeTrackerStats = {
+  totalSubmissions: number;
+  activeDays: number;
+  peakDay: number;
+  longestStreak: number;
+};
+
 const CELL_SIZE = 11;
 const CELL_GAP = 4;
 const GRID_TOP = 24;
 const GRID_LEFT = 8;
 const DAY_MS = 24 * 60 * 60 * 1000;
+
+function calculateTrackerStats(daily: DailyCounts): LeetCodeTrackerStats {
+  const entries = Object.entries(daily)
+    .map(([date, count]) => ({ date, count }))
+    .sort((first, second) => first.date.localeCompare(second.date));
+
+  let totalSubmissions = 0;
+  let activeDays = 0;
+  let peakDay = 0;
+  let longestStreak = 0;
+  let currentStreak = 0;
+  let previousDate: Date | null = null;
+
+  for (const entry of entries) {
+    totalSubmissions += entry.count;
+
+    if (entry.count > 0) {
+      activeDays += 1;
+      peakDay = Math.max(peakDay, entry.count);
+    }
+
+    const currentDate = new Date(`${entry.date}T00:00:00`);
+    const hasSubmission = entry.count > 0;
+    const isConsecutiveDay =
+      previousDate !== null &&
+      currentDate.getTime() - previousDate.getTime() === DAY_MS;
+
+    if (hasSubmission) {
+      currentStreak = isConsecutiveDay || previousDate === null ? currentStreak + 1 : 1;
+      longestStreak = Math.max(longestStreak, currentStreak);
+    } else {
+      currentStreak = 0;
+    }
+
+    previousDate = currentDate;
+  }
+
+  return {
+    totalSubmissions,
+    activeDays,
+    peakDay,
+    longestStreak,
+  };
+}
 
 function buildTrackerCells(daily: DailyCounts) {
   const endDate = new Date();
@@ -73,6 +125,7 @@ function buildTrackerCells(daily: DailyCounts) {
 
 export const GitHubContributions: React.FC<GitHubContributionsProps> = ({
   username,
+  onStatsChange,
 }) => {
   const [daily, setDaily] = useState<DailyCounts>({});
   const [loading, setLoading] = useState(true);
@@ -94,12 +147,15 @@ export const GitHubContributions: React.FC<GitHubContributionsProps> = ({
 
         const payload = (await response.json()) as TrackerData;
         if (!cancelled) {
-          setDaily(payload.daily ?? {});
+          const nextDaily = payload.daily ?? {};
+          setDaily(nextDaily);
+          onStatsChange?.(calculateTrackerStats(nextDaily));
           setSnakeIndex(0);
         }
       } catch (loadError) {
         if (!cancelled) {
           setError(loadError instanceof Error ? loadError.message : "Failed to load tracker");
+          onStatsChange?.(null);
         }
       } finally {
         if (!cancelled) {
@@ -128,6 +184,10 @@ export const GitHubContributions: React.FC<GitHubContributionsProps> = ({
 
     return () => window.clearInterval(interval);
   }, [tracker.activeCells.length]);
+
+  useEffect(() => {
+    onStatsChange?.(calculateTrackerStats(daily));
+  }, [daily, onStatsChange]);
 
   const trail = tracker.activeCells.length
     ? tracker.activeCells.slice(Math.max(0, snakeIndex - 14), snakeIndex + 1)

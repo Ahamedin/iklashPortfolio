@@ -1,7 +1,9 @@
 "use client";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { SiLeetcode } from "react-icons/si";
 import { GitHubContributions } from "@/components/tools/githubcontribution";
+import type { LeetCodeTrackerStats } from "@/components/tools/githubcontribution";
 
 const Y = "#FFE034";
 const B = "#0D0D0D";
@@ -14,6 +16,27 @@ const fade = (delay = 0) => ({
 });
 
 export default function GitHub() {
+  const [trackerStats, setTrackerStats] = useState<LeetCodeTrackerStats | null>(null);
+
+  const stats = [
+    {
+      label: "Total submissions",
+      val: trackerStats ? `${trackerStats.totalSubmissions}+` : "...",
+    },
+    {
+      label: "Active days",
+      val: trackerStats ? `${trackerStats.activeDays}+` : "...",
+    },
+    {
+      label: "Peak day",
+      val: trackerStats ? `${trackerStats.peakDay}+` : "...",
+    },
+    {
+      label: "Longest streak",
+      val: trackerStats ? `${trackerStats.longestStreak}d` : "...",
+    },
+  ];
+
   return (
     <div id="github-page" className="min-h-screen w-full relative" style={{ background: "#111111" }}>
       <div className="absolute inset-0 pointer-events-none grid-bg" />
@@ -78,19 +101,14 @@ export default function GitHub() {
           {/* Tracker */}
           <div style={{ overflowX: "auto" }}>
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.35 }}>
-              <GitHubContributions username="IklashAhamed" />
+              <GitHubContributions username="IklashAhamed" onStatsChange={setTrackerStats} />
             </motion.div>
           </div>
         </motion.div>
 
         {/* Stats strip */}
         <motion.div {...fade(0.2)} className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mt-6">
-          {[
-            { label: "Total Commits", val: "200+" },
-            { label: "Repositories", val: "10+" },
-            { label: "Languages", val: "6+" },
-            { label: "Contributions", val: "Daily" },
-          ].map(({ label, val }) => (
+          {stats.map(({ label, val }) => (
             <div
               key={label}
               style={{ background: "#181818", border: "1.5px solid rgba(255,224,52,0.1)", padding: "16px 20px" }}
