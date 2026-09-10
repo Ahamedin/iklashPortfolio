@@ -149,7 +149,7 @@ Use these results only if they help answer the user query accurately.
           body: JSON.stringify({
             model:
               process.env.OPENROUTER_MODEL ||
-              "nvidia/nemotron-3-nano-30b-a3b:free",
+              "nvidia/nemotron-3-nano-30b-a3b",
 
             messages:
               formattedMessages,
