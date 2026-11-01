@@ -37,7 +37,7 @@ const certifications: Certification[] = [
     description:
       "Covered HTML and CSS, JavaScript, website development, the software development lifecycle, testing and deployment, version control, and DevOps.",
     skills: ["HTML/CSS", "JavaScript", "Version Control", "DevOps"],
-    link: "https://www.credly.com/badges/12ca2a3b-cecf-4e95-b766-df087ee8571a",
+    link: "/certificates/IBM.jpg",
   },
   {
     title: "Networking Basics",
@@ -48,7 +48,7 @@ const certifications: Certification[] = [
     description:
       "Covered networking fundamentals, devices and media, data transmission, wireless technologies, and IP addressing.",
     skills: ["Networking Fundamentals", "IP Addressing", "Wireless Technologies"],
-    link: "https://www.credly.com/badges/679b6796-b4ad-42e7-b9cc-a331e6ec2cde/accept",
+    link: "/certificates/Cisco.pdf",
   },
 ];
 
