@@ -92,7 +92,7 @@ function CredentialId({ credentialId }: { credentialId: string }) {
         type="button"
         onClick={copyCredentialId}
         aria-label={`Copy credential ID ${credentialId}`}
-        className="shrink-0 border border-[rgba(255,224,52,0.2)] p-1.5 text-[rgba(255,224,52,0.7)] transition-colors hover:border-[rgba(255,224,52,0.55)] hover:text-[#FFE034] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFE034]"
+        className="flex min-h-11 min-w-11 shrink-0 items-center justify-center border border-[rgba(255,224,52,0.2)] p-1.5 text-[rgba(255,224,52,0.7)] transition-colors hover:border-[rgba(255,224,52,0.55)] hover:text-[#FFE034] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFE034]"
       >
         {copied ? <FiCheck size={12} aria-hidden="true" /> : <FiCopy size={12} aria-hidden="true" />}
       </button>
@@ -107,10 +107,10 @@ function CredentialId({ credentialId }: { credentialId: string }) {
 
 export default function Certifications() {
   return (
-    <div id="certifications-page" className="relative min-h-screen w-full" style={{ background: B }}>
+    <div id="certifications-page" className="relative min-h-screen w-full overflow-hidden" style={{ background: B }}>
       <div className="grid-bg pointer-events-none absolute inset-0" />
 
-      <div className="relative z-10 mx-auto max-w-7xl px-6 py-24 md:px-12">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 md:px-12 md:py-24">
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -129,13 +129,13 @@ export default function Certifications() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.55, delay: 0.06 }}
-          className="mb-14 font-display text-[clamp(44px,7vw,80px)] font-black leading-[0.92] tracking-[-0.04em] text-[#FFE034]"
+          className="mb-10 break-words font-display text-[clamp(42px,10vw,80px)] font-black leading-[0.92] tracking-[-0.04em] text-[#FFE034] sm:mb-14"
         >
           Certifications
         </motion.h1>
 
         <motion.div
-          className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3"
+          className="grid min-w-0 grid-cols-1 gap-4 sm:gap-5 md:grid-cols-2 lg:grid-cols-3"
           variants={{ hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.12 } } }}
           initial="hidden"
           whileInView="show"
@@ -145,24 +145,24 @@ export default function Certifications() {
             <motion.article
               key={certification.title}
               variants={cardVariants}
-              className="group flex h-full flex-col border-[1.5px] border-[rgba(255,224,52,0.12)] bg-[#181818] p-5 transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-1 hover:border-[rgba(255,224,52,0.45)] hover:shadow-[0_8px_32px_rgba(255,224,52,0.07)]"
+              className="group flex min-w-0 h-full flex-col border-[1.5px] border-[rgba(255,224,52,0.12)] bg-[#181818] p-4 transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-1 hover:border-[rgba(255,224,52,0.45)] hover:shadow-[0_8px_32px_rgba(255,224,52,0.07)] sm:p-5"
             >
-              <div className="flex items-start justify-between gap-4">
-                <p className="font-mono-y text-[10px] uppercase tracking-[0.12em] text-[rgba(240,234,214,0.5)]">
+              <div className="flex min-w-0 items-start justify-between gap-3">
+                <p className="min-w-0 pt-1 font-mono-y text-[10px] uppercase tracking-[0.12em] text-[rgba(240,234,214,0.5)]">
                   {certification.date}
                 </p>
                 <span
-                  className="border px-2 py-1 text-right font-mono-y text-[9px] leading-tight tracking-[0.04em]"
+                  className="max-w-[58%] shrink-0 break-words border px-2 py-1 text-right font-mono-y text-[9px] leading-tight tracking-[0.04em] sm:max-w-[62%]"
                   style={{ borderColor: `${typeColor(certification.type)}55`, color: typeColor(certification.type) }}
                 >
                   {certification.type}
                 </span>
               </div>
 
-              <h2 className="mt-6 font-display text-xl font-extrabold leading-tight tracking-[-0.02em] text-[#FFE034]">
+              <h2 className="mt-5 break-words font-display text-lg font-extrabold leading-tight tracking-[-0.02em] text-[#FFE034] sm:mt-6 sm:text-xl">
                 {certification.title}
               </h2>
-              <p className="mt-2 font-display text-sm font-bold text-[rgba(240,234,214,0.82)]">
+              <p className="mt-2 break-words font-display text-sm font-bold leading-5 text-[rgba(240,234,214,0.82)]">
                 {certification.issuer}
               </p>
 
@@ -185,7 +185,7 @@ export default function Certifications() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`View credential for ${certification.title}`}
-                className="mt-auto ml-auto inline-flex items-center gap-2 pt-8 font-mono-y text-[10px] uppercase tracking-[0.12em] text-[rgba(255,224,52,0.7)] transition-colors hover:text-[#FFE034] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#FFE034]"
+                className="mt-auto ml-auto inline-flex min-h-11 items-center gap-2 pt-6 text-right font-mono-y text-[10px] uppercase tracking-[0.12em] text-[rgba(255,224,52,0.7)] transition-colors hover:text-[#FFE034] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#FFE034] sm:pt-8"
               >
                 View Credential <FiExternalLink size={13} aria-hidden="true" />
               </a>
