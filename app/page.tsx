@@ -6,6 +6,7 @@ import About from "./about/page";
 import Skills from "./skills/page";
 import Contact from "./contact/page";
 import Projects from "./projects/page";
+import Certifications from "./certifications/page";
 import { AIChatModal } from "../components/tools/ai-chat-modal";
 import { UnifiedAIInput } from "../components/tools/UnifiedAIInput";
 import { useState, useEffect, useCallback, useRef } from "react";
@@ -183,6 +184,10 @@ export default function Home() {
 
       <section id="projects" className="scroll-mt-20" data-theme-target="projects-section">
         <Projects />
+      </section>
+
+      <section id="certifications" className="scroll-mt-20" data-theme-target="certifications-section">
+        <Certifications />
       </section>
 
       <section id="github" className="scroll-mt-20" data-theme-target="github-section">

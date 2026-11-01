@@ -12,6 +12,7 @@ const spring = { type: "spring", mass: 0.4, damping: 15, stiffness: 300 };
 const NAV_ITEMS = [
   { href: "/#home",       label: "Home",     id: "home" },
   { href: "/#projects",   label: "Projects", id: "projects" },
+  { href: "/#certifications", label: "Certifications", id: "certifications" },
   { href: "/#contact",    label: "Contact",  id: "contact" },
 ];
 
@@ -94,7 +95,7 @@ export function Navbar() {
                 IK
               </span>
 
-              {NAV_ITEMS.slice(0, 2).map((item) => (
+              {NAV_ITEMS.slice(0, 3).map((item) => (
                 <NavLink key={item.id} href={item.href} active={isActive(item.id)}>
                   {item.label}
                 </NavLink>
@@ -137,9 +138,7 @@ export function Navbar() {
                 </div>
               </div>
 
-              <NavLink href="/#contact" active={isActive("contact")}>
-                Contact
-              </NavLink>
+              <NavLink href="/#contact" active={isActive("contact")}>Contact</NavLink>
             </div>
           </motion.nav>
         )}
@@ -202,7 +201,7 @@ export function Navbar() {
                   }}
                   className="mt-2 flex flex-col"
                 >
-                  {[...NAV_ITEMS.slice(0, 2), ...ABOUT_SUB.map((s) => ({ ...s, sub: true })), NAV_ITEMS[2]].map(
+                  {[...NAV_ITEMS.slice(0, 3), ...ABOUT_SUB.map((s) => ({ ...s, sub: true })), NAV_ITEMS[3]].map(
                     (item: NavMobileItem) => (
                       <a
                         key={item.id}
